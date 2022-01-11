@@ -1,4 +1,4 @@
-import { CanvasController } from './CanvasController'
+import { CanvasController } from './Controllers'
 import { DomEvents } from './DomEvents'
 import { GameLoop } from './GameLoop'
 import { Registers } from './Registers'

@@ -1,25 +1,19 @@
-import { Object2D, MovimentableObject } from 'engine/Objects'
-import { RTDO } from 'engine/Render'
+import { CtxController } from 'engine/Render/CtxController'
+
+import { EntitiesController } from './Controllers'
 
 export class GameLoop {
 	private static run() {
-		const square = new Object2D().createMap({
-			x: 10,
-			y: 10,
-			width: 100,
-			height: 100
-		})
+		CtxController.getInstance().resetAll()
 
-		const moviment = new MovimentableObject(square)
-
-		const renderService = new RTDO('#333', 'fill')
-
-		renderService.render(moviment.getObjetc())
+		EntitiesController.getInstance().player.render()
 
 		window.requestAnimationFrame(() => this.run())
 	}
 
 	public static start() {
+		EntitiesController.getInstance().setup()
+
 		window.requestAnimationFrame(() => this.run())
 	}
 }

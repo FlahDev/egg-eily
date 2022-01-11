@@ -1,7 +1,7 @@
 import { DOMEventModel } from 'engine/models/DOMEvent.model'
-import { CanvasController } from 'engine/CanvasController'
+import { CanvasController } from 'engine/Controllers'
 
-export class WindowSizeEvent implements DOMEventModel {
+export class Resize implements DOMEventModel {
 	eventAction() {
 		const width = window.innerWidth
 		const height = window.innerHeight

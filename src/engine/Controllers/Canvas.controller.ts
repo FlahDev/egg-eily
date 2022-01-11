@@ -11,7 +11,6 @@ export class CanvasController {
 	public static screenHeight = 0
 
 	private static canvasContext?: CanvasRenderingContext2D
-	private static canvas?: HTMLCanvasElement
 
 	static create(canvas: HTMLCanvasElement) {
 		if (this.canvasRef) return
@@ -45,14 +44,16 @@ export class CanvasController {
 	static ctx(): CanvasRenderingContext2D {
 		if (this.canvasContext) return this.canvasContext
 
-		const ctx: CanvasRenderingContext2D = this?.canvas?.getContext('2d') as any
+		const ctx: CanvasRenderingContext2D = this?.canvasRef?.getContext(
+			'2d'
+		) as any
 
 		this.canvasContext = ctx
 
 		return ctx
 	}
 
-	static getCanavs() {
-		return this.canvas as HTMLCanvasElement
+	static getCanvas() {
+		return this.canvasRef as HTMLCanvasElement
 	}
 }

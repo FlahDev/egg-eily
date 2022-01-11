@@ -26,6 +26,13 @@ export class MovimentableObject {
 		this.object2D.y = pos.y
 	}
 
+	public walkX(steps: number) {
+		this.object2D.x += steps
+	}
+	public walkY(steps: number) {
+		this.object2D.y += steps
+	}
+
 	public getPoints(): MovimentableObjectPointsDTO {
 		const { x, y, width, height } = this.object2D
 
@@ -47,7 +54,7 @@ export class MovimentableObject {
 		this.object2D.height = sizes.height
 	}
 
-	public getObjetc(): Readonly<Object2D> {
+	public getObject(): Readonly<Object2D> {
 		return this.object2D
 	}
 }

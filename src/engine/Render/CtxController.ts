@@ -1,4 +1,4 @@
-import { CanvasController } from 'engine/CanvasController'
+import { CanvasController } from 'engine/Controllers'
 import { StyleMode } from 'engine/interfaces'
 
 export class CtxController {
