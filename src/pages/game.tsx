@@ -1,6 +1,6 @@
 // libs
 import React, { useEffect, useRef } from 'react'
-import { Grid, Box } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { GameApplication } from 'engine'
 
