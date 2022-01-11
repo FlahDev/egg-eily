@@ -17,6 +17,8 @@ export class GameApplication {
 	}
 
 	public setup(canvas: HTMLCanvasElement) {
+		if (this.isSetup) return
+
 		this.isSetup = true
 
 		CanvasController.create(canvas)
