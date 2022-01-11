@@ -4,22 +4,29 @@ import { GameLoop } from './GameLoop'
 import { Registers } from './Registers'
 
 export class GameApplication {
-	constructor(private canvas: HTMLCanvasElement) {}
+	private isSetup = false
 
-	public init() {
-		CanvasController.create(this.canvas)
+	private constructor() {
+		return
+	}
 
-		CanvasController.ctx().fillRect(
-			0,
-			0,
-			CanvasController.canvasWidth,
-			CanvasController.canvasHeight
-		)
+	private static _instance: GameApplication
+
+	public static getInstance(): GameApplication {
+		return this._instance || (this._instance = new this())
+	}
+
+	public setup(canvas: HTMLCanvasElement) {
+		this.isSetup = true
+
+		CanvasController.create(canvas)
 
 		DomEvents.start()
 
 		Registers.startAll()
+	}
 
+	public start() {
 		GameLoop.start()
 	}
 }

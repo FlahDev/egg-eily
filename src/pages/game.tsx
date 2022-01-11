@@ -9,20 +9,15 @@ function Game() {
 
 	useEffect(() => {
 		if (ref && ref.current) {
-			const game = new GameApplication(ref.current)
-			game.init()
+			const game = GameApplication.getInstance()
+			game.setup(ref.current)
+			game.start()
 		}
 	}, [ref])
 
 	return (
 		<Box width="100vw" height="100vh" display="flex" flexDirection="column">
-			<Box
-				height="60px"
-				width="100%"
-
-				// alignItems="center"
-				// justifyContent="center"
-			>
+			<Box height="60px" width="100%">
 				header
 			</Box>
 
@@ -30,19 +25,6 @@ function Game() {
 				<canvas ref={ref} style={{ width: '100%', height: '100%' }} />
 			</Box>
 		</Box>
-
-		// <Box width="100vw" height="100vh">
-		// 	<Grid container style={{ height: '100%', background: 'red' }}>
-		// 		<Grid item xs={12}>
-		// 			<Box height="60px">Header</Box>
-		// 		</Grid>
-		// 		<Grid item xs={12}>
-		// 			<Box height="fill-parent">
-		// 				<canvas ref={ref} style={{ width: '100%', height: '100%' }} />
-		// 			</Box>
-		// 		</Grid>
-		// 	</Grid>
-		// </Box>
 	)
 }
 
