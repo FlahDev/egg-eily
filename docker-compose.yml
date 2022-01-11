@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  ee:
+    image: node:16
+    container_name: ee-front
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - '3000:3000'
+    command: 'yarn start'
+    environment:
+      NODE_ENV: develop
