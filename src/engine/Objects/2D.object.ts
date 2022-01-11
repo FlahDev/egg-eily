@@ -14,7 +14,7 @@ export class Object2D implements Object2D {
 		return this
 	}
 
-	public createMap(props: Object2D) {
+	public createMap(props: Object2DDTO) {
 		if (this.isCreated) return this
 
 		this.x = props.x

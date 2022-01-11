@@ -21,8 +21,11 @@ function Game() {
 				header
 			</Box>
 
-			<Box height="100%" width="100%">
-				<canvas ref={ref} style={{ width: '100%', height: '100%' }} />
+			<Box height="100%" width="100%" bgcolor="#aaa">
+				<canvas
+					ref={ref}
+					style={{ width: '100%', height: '100%', border: '1px solid #000' }}
+				/>
 			</Box>
 		</Box>
 	)

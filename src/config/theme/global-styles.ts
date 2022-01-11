@@ -10,6 +10,9 @@ export const GlobalStyles = createGlobalStyle`
 
 		body {
 			background: ${theme.colors.backgroundPrimary};
+
+			overflow-x: hidden;
+			overflow-y: hidden;
 		}
 
 		body,

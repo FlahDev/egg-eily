@@ -21,9 +21,7 @@ export class Registers {
 	}
 
 	public static startAll() {
-		console.log(this.registers.length)
 		this.registers.forEach(function (item) {
-			console.log(item.name)
 			item.registerAction()
 		})
 	}

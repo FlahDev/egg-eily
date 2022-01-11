@@ -1,4 +1,6 @@
 export class CanvasController {
+	private static canvasRef: HTMLCanvasElement
+
 	private constructor() {
 		return
 	}
@@ -12,9 +14,13 @@ export class CanvasController {
 	private static canvas?: HTMLCanvasElement
 
 	static create(canvas: HTMLCanvasElement) {
-		this.updateCanvas(canvas.width, canvas.height)
+		if (this.canvasRef) return
 
-		const ctx = canvas.getContext('2d')
+		this.canvasRef = canvas
+
+		this.updateCanvas(this.canvasRef.clientWidth, this.canvasRef.clientHeight)
+
+		const ctx = this.canvasRef.getContext('2d')
 
 		if (ctx) this.canvasContext = ctx
 	}
@@ -22,12 +28,18 @@ export class CanvasController {
 	static updateCanvas(width: number, height: number) {
 		this.canvasWidth = width
 		this.canvasHeight = height
+
+		this.canvasRef.setAttribute('width', String(width))
+		this.canvasRef.setAttribute('height', String(height))
 	}
 	static updateScreen(width: number, height: number) {
 		this.screenWidth = width
 		this.screenHeight = height
 
-		console.log(this.screenWidth, this.screenHeight)
+		this.updateCanvas(
+			this.canvasRef.clientWidth,
+			this.canvasRef.clientHeight - 60
+		)
 	}
 
 	static ctx(): CanvasRenderingContext2D {

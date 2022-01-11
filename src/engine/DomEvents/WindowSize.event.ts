@@ -7,8 +7,6 @@ export class WindowSizeEvent implements DOMEventModel {
 		const height = window.innerHeight
 
 		CanvasController.updateScreen(width, height)
-
-		console.log('resize')
 	}
 	eventValidation() {
 		this.eventAction()
