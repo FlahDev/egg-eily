@@ -1,6 +1,6 @@
 import { StyleMode } from 'engine/interfaces'
 import { Object2D } from 'engine/Objects/2D.object'
-import { CtxController } from '../CtxController'
+import { CtxController } from 'engine/Controllers'
 
 export class RTDO {
 	private style = '#000'

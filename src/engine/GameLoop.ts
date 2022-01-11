@@ -1,12 +1,11 @@
-import { CtxController } from 'engine/Render/CtxController'
-
-import { EntitiesController } from './Controllers'
+import { EntitiesController, CtxController } from './Controllers'
+import { RenderService } from 'engine/Render'
 
 export class GameLoop {
 	private static run() {
 		CtxController.getInstance().resetAll()
 
-		EntitiesController.getInstance().player.render()
+		RenderService.renderAll()
 
 		window.requestAnimationFrame(() => this.run())
 	}

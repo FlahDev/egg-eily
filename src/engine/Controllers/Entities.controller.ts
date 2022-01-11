@@ -1,3 +1,4 @@
+import { RenderService } from 'engine/Render'
 import { KeyboardEvent } from 'engine/DomEvents/Keyboard.event'
 import { PlayerEntity } from 'engine/Entities'
 import { Object2D } from 'engine/Objects'
@@ -29,6 +30,13 @@ export class EntitiesController {
 		KeyboardEvent.addRegister({
 			name: 'player',
 			action: () => this.player.jump()
+		})
+
+		RenderService.addRegister({
+			name: 'player',
+			action: () => this.player.render(),
+			level: 'normal',
+			priority: 5
 		})
 	}
 }
