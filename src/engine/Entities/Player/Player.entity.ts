@@ -25,4 +25,8 @@ export class PlayerEntity {
 	public jump() {
 		this.mo.walkY(-this.JUMP_HEIGHT)
 	}
+
+	public fall(gravityPower: number) {
+		this.mo.walkY(gravityPower)
+	}
 }

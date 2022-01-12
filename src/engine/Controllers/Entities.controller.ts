@@ -3,6 +3,7 @@ import { KeyboardEvent } from 'engine/DomEvents/Keyboard.event'
 import { PlayerEntity } from 'engine/Entities'
 import { Object2D } from 'engine/Objects'
 import { CanvasController } from '.'
+import { GravityMechanic } from 'engine/Mechanics'
 
 export class EntitiesController {
 	private constructor() {
@@ -37,6 +38,12 @@ export class EntitiesController {
 			action: () => this.player.render(),
 			level: 'normal',
 			priority: 5
+		})
+
+		GravityMechanic.addRegister({
+			name: 'player',
+			action: (gravityPower) => this.player.fall(gravityPower),
+			weight: 2
 		})
 	}
 }
