@@ -1,6 +1,6 @@
 import { Object2DDTO } from 'engine/models'
 
-export class Object2D implements Object2D {
+export class Object2D {
 	public isCreated = false
 
 	public x = 0

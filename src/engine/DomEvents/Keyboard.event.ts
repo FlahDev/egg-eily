@@ -11,7 +11,13 @@ export class KeyboardEvent implements DOMEventModel {
 		return this._instance || (this._instance = new this())
 	}
 
-	private static readonly listenKeys = ['ArrowUp', 'w', ' ']
+	private static readonly listenKeys = [
+		'ArrowUp',
+		'w',
+		' ',
+		'ArrowRight',
+		'ArrowLeft'
+	]
 
 	private static registers: KeyboardEventDTO[] = []
 
@@ -46,6 +52,15 @@ export class KeyboardEvent implements DOMEventModel {
 			case 'w':
 			case ' ': {
 				KeyboardEvent.applyEvent('player')
+				break
+			}
+
+			case 'ArrowRight': {
+				KeyboardEvent.applyEvent('playerRight')
+				break
+			}
+			case 'ArrowLeft': {
+				KeyboardEvent.applyEvent('playerLeft')
 				break
 			}
 

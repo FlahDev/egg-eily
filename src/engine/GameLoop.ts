@@ -1,4 +1,8 @@
-import { EntitiesController, CtxController } from './Controllers'
+import {
+	EntitiesController,
+	CtxController,
+	ServicesController
+} from './Controllers'
 import { RenderService } from 'engine/Render'
 import { GravityMechanic } from 'engine/Mechanics'
 
@@ -9,6 +13,8 @@ export class GameLoop {
 		GravityMechanic.gravityStart()
 
 		RenderService.renderAll()
+
+		ServicesController.getInstance().run()
 
 		window.requestAnimationFrame(() => this.run())
 	}
