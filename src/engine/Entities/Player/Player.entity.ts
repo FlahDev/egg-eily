@@ -7,6 +7,7 @@ export class PlayerEntity {
 	private ris!: RenderImage
 
 	public isActive = false
+	private isJumping = false
 	private collindings: string[] = []
 	private floorY!: number
 
@@ -40,20 +41,25 @@ export class PlayerEntity {
 		if (
 			this.collindings.includes('floor') &&
 			this.mo.getObject().y === this.floorY
-		)
+		) {
+			this.isJumping = true
 			this.mo.walkY(-this.JUMP_HEIGHT)
+			this.isJumping = false
+		}
 	}
 
 	public fall(gravityPower: number) {
-		const tdo = this.mo.getObject()
+		if (!this.isJumping) {
+			const tdo = this.mo.getObject()
 
-		if (tdo.y === this.floorY) return
+			if (tdo.y === this.floorY) return
 
-		const newY = tdo.y + gravityPower
+			const newY = tdo.y + gravityPower
 
-		if (newY < this.floorY) this.mo.walkY(gravityPower)
-		else {
-			this.mo.moveY(this.floorY)
+			if (newY < this.floorY) this.mo.walkY(gravityPower)
+			else {
+				this.mo.moveY(this.floorY)
+			}
 		}
 	}
 
