@@ -1,6 +1,11 @@
 import { CanvasController } from 'engine/Controllers'
 import { StyleMode } from 'engine/interfaces'
-import { DrawImageDTO } from 'engine/models'
+import {
+	DrawImageDTO,
+	RotateDTO,
+	RotateStyleDTO,
+	RotateImageDTO
+} from 'engine/models'
 
 export class CtxController {
 	private constructor() {
@@ -20,7 +25,7 @@ export class CtxController {
 		CanvasController.ctx().restore()
 	}
 
-	public safeRender(action: () => void) {
+	private safeRender(action: () => void) {
 		const currentStyle = CanvasController.ctx().fillStyle
 		const currentStroke = CanvasController.ctx().strokeStyle
 
@@ -28,6 +33,30 @@ export class CtxController {
 
 		CanvasController.ctx().fillStyle = currentStyle
 		CanvasController.ctx().strokeStyle = currentStroke
+	}
+	public eraseAll() {
+		CanvasController.ctx().clearRect(
+			0,
+			0,
+			CanvasController.canvasWidth,
+			CanvasController.canvasHeight
+		)
+	}
+
+	public resetAll() {
+		this.restoreState()
+		CanvasController.ctx().fillStyle = '#000'
+		CanvasController.ctx().strokeStyle = '#000'
+
+		this.eraseAll()
+	}
+
+	private specialRender(renderAction: () => void) {
+		this.saveState()
+
+		this.safeRender(() => renderAction())
+
+		this.restoreState()
 	}
 
 	public drawRect(
@@ -91,20 +120,42 @@ export class CtxController {
 		})
 	}
 
-	public eraseAll() {
-		CanvasController.ctx().clearRect(
-			0,
-			0,
-			CanvasController.canvasWidth,
-			CanvasController.canvasHeight
-		)
+	public rotateRect(settings: RotateDTO, styles: RotateStyleDTO) {
+		this.specialRender(() => {
+			CanvasController.ctx().translate(
+				settings.x + settings.width / 2,
+				settings.y + settings.height / 2
+			)
+
+			CanvasController.ctx().rotate((Math.PI / 180) * settings.angle)
+
+			this.drawRect(
+				settings.calculedX,
+				settings.calculedY,
+				settings.width,
+				settings.height,
+				styles.style,
+				styles.styleMode
+			)
+		})
 	}
 
-	public resetAll() {
-		this.restoreState()
-		CanvasController.ctx().fillStyle = '#000'
-		CanvasController.ctx().strokeStyle = '#000'
+	public rotateImage(settings: RotateDTO, imageSettings: RotateImageDTO) {
+		this.specialRender(() => {
+			CanvasController.ctx().translate(
+				settings.x + settings.width / 2,
+				settings.y + settings.height / 2
+			)
 
-		this.eraseAll()
+			CanvasController.ctx().rotate((Math.PI / 180) * settings.angle)
+
+			this.drawImage({
+				...imageSettings,
+				x: settings.calculedX,
+				y: settings.calculedY,
+				width: settings.width,
+				height: settings.height
+			})
+		})
 	}
 }

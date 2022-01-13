@@ -1,10 +1,11 @@
-import { RTDO, RenderImage } from 'engine/Render'
+import { RTDO, RenderImage, Rotate } from 'engine/Render'
 import { Object2D, MovimentableObject } from 'engine/Objects'
 
 export class PlayerEntity {
 	public mo!: MovimentableObject
 	private rs!: RTDO
 	private ris!: RenderImage
+	private rotateRS!: Rotate<'image'>
 
 	public isActive = false
 	private isJumping = false
@@ -23,20 +24,40 @@ export class PlayerEntity {
 			imageWidth: 72,
 			imageHeight: 108
 		})
+		this.rotateRS = new Rotate(1, 'image')
 
 		this.floorY = objetc2D.y
 	}
 
+	// render
 	public render() {
 		if (this.mo.isVisible) {
-			this.ris.render(this.mo.getObject())
+			this.animation()
+
+			this.rotateRS.increment()
 		}
+	}
+	private renderSprite() {
+		this.ris.render(this.mo.getObject())
+	}
+	private renderRect() {
+		this.rs.render(this.mo.getObject())
+	}
+	private animation() {
+		this.rotateRS.render(this.mo.getObject(), {
+			image: 'egg',
+			imageX: 0,
+			imageY: 0,
+			imageWidth: 72,
+			imageHeight: 108
+		})
 	}
 
 	public setVisibility(visibility = false) {
 		this.mo.isVisible = visibility
 	}
 
+	// events
 	public jump() {
 		if (
 			this.collindings.includes('floor') &&
@@ -47,7 +68,14 @@ export class PlayerEntity {
 			this.isJumping = false
 		}
 	}
+	public right() {
+		this.mo.walkX(20)
+	}
+	public left() {
+		this.mo.walkX(-20)
+	}
 
+	// mechanics
 	public fall(gravityPower: number) {
 		if (!this.isJumping) {
 			const tdo = this.mo.getObject()
@@ -62,14 +90,6 @@ export class PlayerEntity {
 			}
 		}
 	}
-
-	public right() {
-		this.mo.walkX(20)
-	}
-	public left() {
-		this.mo.walkX(-20)
-	}
-
 	public collide(collidings: string[]) {
 		this.collindings = [...collidings]
 	}
