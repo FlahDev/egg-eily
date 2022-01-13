@@ -1,24 +1,35 @@
-import { RTDO } from 'engine/Render'
+import { RTDO, RenderImage } from 'engine/Render'
 import { Object2D, MovimentableObject } from 'engine/Objects'
 
 export class PlayerEntity {
 	public mo!: MovimentableObject
 	private rs!: RTDO
+	private ris!: RenderImage
 
 	public isActive = false
 	private collindings: string[] = []
 	private floorY!: number
 
-	public readonly JUMP_HEIGHT = 100
+	public readonly JUMP_HEIGHT = 150
 
 	constructor(objetc2D: Object2D) {
 		this.mo = new MovimentableObject(objetc2D)
 		this.rs = new RTDO('red', 'fill')
+		this.ris = new RenderImage({
+			image: 'egg',
+			imageX: 0,
+			imageY: 0,
+			imageWidth: 72,
+			imageHeight: 108
+		})
+
 		this.floorY = objetc2D.y
 	}
 
 	public render() {
-		if (this.mo.isVisible) this.rs.render(this.mo.getObject())
+		if (this.mo.isVisible) {
+			this.ris.render(this.mo.getObject())
+		}
 	}
 
 	public setVisibility(visibility = false) {

@@ -1,5 +1,6 @@
 import { CanvasController } from 'engine/Controllers'
 import { StyleMode } from 'engine/interfaces'
+import { DrawImageDTO } from 'engine/models'
 
 export class CtxController {
 	private constructor() {
@@ -71,6 +72,22 @@ export class CtxController {
 
 				CanvasController.ctx().strokeText(text, x, y)
 			}
+		})
+	}
+
+	public drawImage(settings: DrawImageDTO) {
+		this.safeRender(() => {
+			CanvasController.ctx().drawImage(
+				settings.image,
+				settings.imageX,
+				settings.imageY,
+				settings.imageWidth,
+				settings.imageHeight,
+				settings.x,
+				settings.y,
+				settings.width,
+				settings.height
+			)
 		})
 	}
 

@@ -1,4 +1,4 @@
-import { CanvasController } from './Controllers'
+import { CanvasController, ImagesController } from './Controllers'
 import { DomEvents } from './DomEvents'
 import { GameLoop } from './GameLoop'
 import { Registers } from './Registers'
@@ -19,13 +19,15 @@ export class GameApplication {
 	public setup(canvas: HTMLCanvasElement) {
 		if (this.isSetup) return
 
-		this.isSetup = true
+		ImagesController.getInstance().setup()
 
 		CanvasController.create(canvas)
 
 		DomEvents.start()
 
 		Registers.startAll()
+
+		this.isSetup = true
 	}
 
 	public start() {

@@ -7,6 +7,8 @@ import { RenderService } from 'engine/Render'
 import { GravityMechanic } from 'engine/Mechanics'
 
 export class GameLoop {
+	private static image: any
+
 	private static run() {
 		CtxController.getInstance().resetAll()
 
